@@ -153,7 +153,7 @@ public class WheelSurfPanView extends View {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.wheelSurfView);
             try {
                 mVarTime = typedArray.getInteger(R.styleable.wheelSurfView_vartime, 0);
-                mMinTimes = typedArray.getInteger(R.styleable.wheelSurfView_minTimes, 3);
+                mMinTimes = typedArray.getInteger(R.styleable.wheelSurfView_minTimes, 6);
                 mTypeNum = typedArray.getInteger(R.styleable.wheelSurfView_typenum, 0);
                 roundColor = typedArray.getColor(R.styleable.wheelSurfView_RoundProgressBar_roundColor, Color.RED);//圆环的颜色
                 roundWidth = typedArray.getDimension(R.styleable.wheelSurfView_RoundProgressBar_roundWidth, 4);//圆环的宽度
@@ -275,6 +275,7 @@ public class WheelSurfPanView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 //将动画的过程态回调给调用者
+
                 if (rotateListener != null)
                     rotateListener.rotating(animation);
             }

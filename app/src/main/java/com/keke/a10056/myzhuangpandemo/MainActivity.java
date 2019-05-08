@@ -98,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
          */
 
         colors = new ArrayList<>();
-        colors.add(Color.parseColor("#fef9f7"));
-        colors.add(Color.parseColor("#fbc6a9"));
-        colors.add(Color.parseColor("#ffdecc"));
-        colors.add(Color.parseColor("#fbc6a9"));
-        colors.add(Color.parseColor("#ffdecc"));
-        colors.add(Color.parseColor("#fbc6a9"));
-        colors.add(Color.parseColor("#ffdecc"));
+        colors.add(Color.parseColor("#F6829F"));
+        colors.add(Color.parseColor("#E83030"));
+        colors.add(Color.parseColor("#464AE1"));
+        colors.add(Color.parseColor("#4394C5"));
+        colors.add(Color.parseColor("#D47EFF"));
+        colors.add(Color.parseColor("#DEDC88"));
+        colors.add(Color.parseColor("#C5CCD1"));
 
 
         mListBitmap = new ArrayList<>();
