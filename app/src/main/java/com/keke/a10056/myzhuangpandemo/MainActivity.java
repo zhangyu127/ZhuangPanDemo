@@ -22,6 +22,7 @@ import com.keke.a10056.myzhuangpandemo.listener.RotateListener;
 import com.keke.a10056.myzhuangpandemo.view.WheelSurfView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -212,6 +213,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+   //数据去重
+    public static List removeDuplicate(List list) {
+        HashSet h = new HashSet(list);
+        list.clear();
+        list.addAll(h);
+        return list;
+    }
 
     @Override
     protected void onDestroy() {
