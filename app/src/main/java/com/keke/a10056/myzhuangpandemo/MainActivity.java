@@ -32,9 +32,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private WheelSurfView.Builder build;
     private List<Integer> colors;
+    private List<Integer> color;
     private List<Bitmap> mListBitmap;
+    private List<Bitmap> mListBitmaps;
     private int typeNum = 7;
     private WheelSurfView wheelSurfView2;
+    private TextView tv_qd;
 
 
     @SuppressLint("HandlerLeak")
@@ -44,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
             imageView.setVisibility(View.GONE);
 
             build = new WheelSurfView.Builder()
-                    .setmColors(colors)
-                    .setmIcons(mListBitmap)
+                    .setmColors(color)
+                    .setmIcons(mListBitmaps)
                     .setmTypeNum(typeNum)
                     .build();
             wheelSurfView2.setConfig(build);
@@ -62,6 +65,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imageView = findViewById(R.id.img_face);
+        tv_qd = findViewById(R.id.tv_qidong);
+
+        tv_qd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                typeNum = 7;
+                mListBitmaps = new ArrayList<>();
+                for (int i = 0; i < mListBitmap.size(); i++) {
+                    mListBitmaps.add(mListBitmap.get(i));
+                }
+                color = new ArrayList<>();
+                for (int i = 0; i < colors.size(); i++) {
+                    color.add(colors.get(i));
+                }
+
+                build = new WheelSurfView.Builder()
+                        .setmColors(color)
+                        .setmIcons(mListBitmaps)
+                        .setmTypeNum(typeNum)
+                        .build();
+                wheelSurfView2.setConfig(build);
+            }
+        });
 
         /**
          * 新增使用代码设置属性的方式
@@ -91,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
          *  重要的事情说三遍
          *
          * 请注意：
-         *  .setmColors(colors)
+         *  .setmColors(\)
          *  .setmDeses(des)
          *  .setmIcons(mListBitmap)
          *  这三个方法中的参数长度必须一致 否则会报运行时异常
@@ -106,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
         colors.add(Color.parseColor("#DEDC88"));
         colors.add(Color.parseColor("#C5CCD1"));
 
+        color = new ArrayList<>();
+        for (int i = 0; i < colors.size(); i++) {
+            color.add(colors.get(i));
+        }
+
 
         mListBitmap = new ArrayList<>();
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
@@ -117,12 +148,18 @@ public class MainActivity extends AppCompatActivity {
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.yuanhuan));
 
 
+        mListBitmaps = new ArrayList<>();
+        for (int i = 0; i < mListBitmap.size(); i++) {
+            mListBitmaps.add(mListBitmap.get(i));
+        }
+
+
         mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
 
         wheelSurfView2 = findViewById(R.id.wheelSurfView2);
         build = new WheelSurfView.Builder()
-                .setmColors(colors)
-                .setmIcons(mListBitmap)
+                .setmColors(color)
+                .setmIcons(mListBitmaps)
                 .setmTypeNum(typeNum)
                 .build();
         wheelSurfView2.setConfig(build);
@@ -138,20 +175,19 @@ public class MainActivity extends AppCompatActivity {
 
                 //判断重新加载转盘   每一次减一
                 if (typeNum == 2) {
-                    mListBitmap.remove((typeNum - position + 1) %
+                    mListBitmaps.remove((typeNum - position + 1) %
                             typeNum);
-                    Bitmap bitmap1 = mListBitmap.get(0);
+                    Bitmap bitmap1 = mListBitmaps.get(0);
 
                     WinDialog winDialog = new WinDialog(MainActivity.this, bitmap1);
                     winDialog.show();
 
                 } else {
                     //                //根据算法删除删除选中的那一栏
-                    colors.remove((typeNum - position + 1) %
+                    color.remove((typeNum - position + 1) %
                             typeNum);
-                    mListBitmap.remove((typeNum - position + 1) %
+                    mListBitmaps.remove((typeNum - position + 1) %
                             typeNum);
-
 
                     typeNum = typeNum - 1;
                     handler.sendEmptyMessageDelayed(2, 3 * 1000);
