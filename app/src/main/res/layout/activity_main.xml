@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="60dp">
 
 
         <com.keke.a10056.myzhuangpandemo.view.WheelSurfView
@@ -31,13 +31,13 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tv_qidong"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/ev_qidong"
+        android:layout_width="70dp"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
-        android:text="重新来一局"
         android:textColor="@color/colorAccent"
         android:textSize="20sp" />
+
 
 </RelativeLayout>
