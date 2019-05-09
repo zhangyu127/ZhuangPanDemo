@@ -183,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
                             mListBitmap.size());
 
 
-
                     handler.sendEmptyMessageDelayed(2, 3 * 1000);
 
                 }
@@ -214,6 +213,22 @@ public class MainActivity extends AppCompatActivity {
                 wheelSurfView2.startRotate(Integer.parseInt(tv_qd.getText().toString()));
             }
         });
+    }
+
+
+    //避免重复点击方法
+    private static final int MIN_DELAY_TIME = 3000;  // 两次点击间隔不能少于1000ms
+    private static long lastClickTime;
+
+
+    public static boolean isFastClick() {
+        boolean flag = true;
+        long currentClickTime = System.currentTimeMillis();
+        if ((currentClickTime - lastClickTime) >= MIN_DELAY_TIME) {
+            flag = false;
+        }
+        lastClickTime = currentClickTime;
+        return flag;
     }
 
 
