@@ -30,6 +30,14 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
+/**
+ * 2019/5/9
+ * zhangyu
+ * 转盘抽奖
+ **/
+
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;
@@ -114,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.yuanhuan));
 
 
-
         mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
 
 
@@ -128,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         colors.add(Color.parseColor("#C5CCD1"));
 
 
+        //对颜色进行遍历    根据人物bitmap集合来遍历颜色
         color = new ArrayList<>();
         for (int i = 0; i < mListBitmap.size(); i++) {
             color.add(colors.get(i));
@@ -152,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mListBitmap.size() == 2) {
                     //对按键
                     // 进行处理
-//                    imgGo.setEnabled(true);
+                    imgGo.setEnabled(true);
 //                    imgGo.setVisibility(View.VISIBLE);
 
                     //对数据显示图片进行处理
@@ -167,14 +175,14 @@ public class MainActivity extends AppCompatActivity {
                     imageView.setVisibility(View.VISIBLE);
                     imageView.setImageBitmap(bitmap);
 
-
+                    imgGo.setEnabled(true);
                     //根据算法删除删除选中的那一栏
                     color.remove((mListBitmap.size() - position + 1) %
                             mListBitmap.size());
                     mListBitmap.remove((mListBitmap.size() - position + 1) %
                             mListBitmap.size());
 
-//                    typeNum = typeNum - 1;
+
 
                     handler.sendEmptyMessageDelayed(2, 3 * 1000);
 
@@ -195,8 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 imgGo = (ImageView) goImg;
 
 //                imgGo.setVisibility(View.GONE);
-                //可以指定转盘转到哪里逆时针
-//                imgGo.setEnabled(false);
+//                可以指定转盘转到哪里逆时针
+                imgGo.setEnabled(false);
 
                 //模拟位置
                 int position = new Random().nextInt(mListBitmap.size()) + 1;
