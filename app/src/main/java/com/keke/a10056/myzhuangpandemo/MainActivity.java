@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.all));
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.yuanhuan));
 
-//        typeNum = mListBitmap.size();
+
 
         mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
 
