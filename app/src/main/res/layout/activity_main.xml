@@ -14,8 +14,8 @@
 
         <com.keke.a10056.myzhuangpandemo.view.WheelSurfView
             android:id="@+id/wheelSurfView2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             wheelSurfView:typenum="-1">
 

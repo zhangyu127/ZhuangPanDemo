@@ -334,7 +334,7 @@ public class WheelSurfPanView extends View {
 
         mCenter = mWidth / 2;
         //绘制扇形的半径 减掉50是为了防止边界溢出  具体效果你自己注释掉-50自己测试
-        mRadius = mWidth / 2 - 50;
+        mRadius = mWidth / 2 -50;
 
         //MUST CALL THIS
         setMeasuredDimension(width, width);
