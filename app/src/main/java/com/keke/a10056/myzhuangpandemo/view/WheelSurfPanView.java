@@ -194,7 +194,7 @@ public class WheelSurfPanView extends View {
                     if (colorArray == -1) throw new RuntimeException("找不到背景颜色");
                     String[] colorStrs = context.getResources().getStringArray(colorArray);
                     if (mIcons == null || colorStrs == null)
-                        throw new RuntimeException("找不到描述或图片或背景颜色资源");
+                        throw new RuntimeException("找不到描述或图片hh或背景颜色资源");
                     if (mIcons.length != mTypeNum || colorStrs.length != mTypeNum)
                         throw new RuntimeException("资源或描述或背景颜色的长度和mTypeNum不一致");
                     mColors = new Integer[mTypeNum];

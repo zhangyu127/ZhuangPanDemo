@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
             public void rotateEnd(int position, String des, Bitmap bitmap) {
 
                 //判断重新加载转盘   每一次减一
-                if (mListBitmap.size() == 2) {
+                if (mListBitmap.size() == 2 || mListBitmap.size() == 1) {
                     //对按键
                     // 进行处理
                     imgGo.setEnabled(true);
@@ -165,8 +165,11 @@ public class MainActivity extends AppCompatActivity {
 
                     //对数据显示图片进行处理
                     //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);
-                    mListBitmap.remove((mListBitmap.size() - position + 1) %
-                            mListBitmap.size());
+                    if (mListBitmap.size() == 2) {
+
+                        mListBitmap.remove((mListBitmap.size() - position + 1) %
+                                mListBitmap.size());
+                    }
                     Bitmap bitmap1 = mListBitmap.get(0);
 
                     WinDialog winDialog = new WinDialog(MainActivity.this, bitmap1);
