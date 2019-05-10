@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (mListBitmap.size() == 8) {
-                    Toast.makeText(MainActivity.this, "已到达游戏上线", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "人数已到达游戏上线", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -168,15 +168,8 @@ public class MainActivity extends AppCompatActivity {
     private void initData() {
         mListBitmap = new ArrayList<>();
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.node));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.meizu));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.liwu));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.dianjiluyin));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.all));
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.yuanhuan));
 
-        //处理图片角度方法
-        mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
+
 
         colors = new ArrayList<>();
         colors.add(Color.parseColor("#F6829F"));
@@ -211,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < mListBitmap.size(); i++) {
             color.add(colors.get(i));
         }
-
     }
 
     /**
@@ -254,6 +246,10 @@ public class MainActivity extends AppCompatActivity {
      * 初始化转盘
      **/
     private void initChuShiHua() {
+
+        //处理图片角度方法
+        mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
+
         build = new WheelSurfView.Builder()
                 .setmColors(color)
                 .setmIcons(mListBitmap)
