@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Integer> colors;
     private List<Integer> color;
     private List<Bitmap> mListBitmap;
-    private int typeNum = 0;
     private WheelSurfView wheelSurfView2;
     private EditText tv_qd;
     private ImageView imgGo;
@@ -208,12 +207,11 @@ public class MainActivity extends AppCompatActivity {
 
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.back));
 
-        mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
-
         color.clear();
         for (int i = 0; i < mListBitmap.size(); i++) {
             color.add(colors.get(i));
         }
+
     }
 
     /**
