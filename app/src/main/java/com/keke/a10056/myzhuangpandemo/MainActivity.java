@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
 //                    imgGo.setVisibility(View.VISIBLE);
 
                     //对数据显示图片进行处理
+                    //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);
                     mListBitmap.remove((mListBitmap.size() - position + 1) %
                             mListBitmap.size());
                     Bitmap bitmap1 = mListBitmap.get(0);
@@ -177,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
                     imgGo.setEnabled(true);
                     //根据算法删除删除选中的那一栏
+                    //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);s
                     color.remove((mListBitmap.size() - position + 1) %
                             mListBitmap.size());
                     mListBitmap.remove((mListBitmap.size() - position + 1) %
@@ -213,22 +215,6 @@ public class MainActivity extends AppCompatActivity {
                 wheelSurfView2.startRotate(Integer.parseInt(tv_qd.getText().toString()));
             }
         });
-    }
-
-
-    //避免重复点击方法
-    private static final int MIN_DELAY_TIME = 3000;  // 两次点击间隔不能少于1000ms
-    private static long lastClickTime;
-
-
-    public static boolean isFastClick() {
-        boolean flag = true;
-        long currentClickTime = System.currentTimeMillis();
-        if ((currentClickTime - lastClickTime) >= MIN_DELAY_TIME) {
-            flag = false;
-        }
-        lastClickTime = currentClickTime;
-        return flag;
     }
 
 

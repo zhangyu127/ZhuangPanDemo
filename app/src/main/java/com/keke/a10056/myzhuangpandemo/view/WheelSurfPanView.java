@@ -297,6 +297,9 @@ public class WheelSurfPanView extends View {
                 Bitmap bitmap = null;
                 //当旋转结束的时候回调给调用者当前所选择的内容
                 if (rotateListener != null) {
+
+                    //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);
+
                     rotateListener.rotateEnd(pos, "", mListBitmap.get((mTypeNum - pos + 1) %
                             mTypeNum));
                 }
@@ -334,7 +337,7 @@ public class WheelSurfPanView extends View {
 
         mCenter = mWidth / 2;
         //绘制扇形的半径 减掉50是为了防止边界溢出  具体效果你自己注释掉-50自己测试
-        mRadius = mWidth / 2 -50;
+        mRadius = mWidth / 2 - 50;
 
         //MUST CALL THIS
         setMeasuredDimension(width, width);
