@@ -19,6 +19,7 @@ import com.keke.a10056.myzhuangpandemo.R;
 import com.keke.a10056.myzhuangpandemo.listener.RotateListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -221,11 +222,13 @@ public class WheelSurfView extends RelativeLayout {
 
 
     //旋转图片
-    public static List<Bitmap> rotateBitmaps(List<Bitmap> source) {
+    public static List<Bitmap> rotateBitmaps(ArrayList<Bitmap> source) {
         float mAngle = (float) (360.0 / source.size());
         List<Bitmap> result = new ArrayList<>();
-        for (int i = 0; i < source.size(); i++) {
-            Bitmap bitmap = source.get(i);
+        Iterator<Bitmap> iterator = source.iterator();
+        int i=0;
+        while (iterator.hasNext()) {
+            Bitmap bitmap = iterator.next();
             int ww = bitmap.getWidth();
             int hh = bitmap.getHeight();
             // 定义矩阵对象
@@ -238,7 +241,11 @@ public class WheelSurfView extends RelativeLayout {
             Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, ww, hh,
                     matrix, true);
             result.add(dstbmp);
+//            iterator.remove();
+//            bitmap.recycle();
+            i++;
         }
+
         return result;
     }
 

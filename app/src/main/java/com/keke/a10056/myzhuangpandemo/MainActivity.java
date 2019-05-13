@@ -23,8 +23,10 @@ import android.widget.Toast;
 import com.keke.a10056.myzhuangpandemo.listener.RotateListener;
 import com.keke.a10056.myzhuangpandemo.view.WheelSurfView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -97,12 +99,14 @@ public class MainActivity extends AppCompatActivity {
             initChuShiHua();
         }
     };
+    private List<Bitmap> bitmap;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mListBitmap = new ArrayList<>();
 
         initView();
         initData();
@@ -166,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        mListBitmap = new ArrayList<>();
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
 
 
@@ -197,7 +200,12 @@ public class MainActivity extends AppCompatActivity {
      **/
     private void initAdd() {
 
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.back));
+        bitmap = mListBitmap;
+        mListBitmap = new ArrayList<>();
+        for (Bitmap bitmap1 : bitmap) {
+            mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.liwu));
+        }
+        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.liwu));
 
         color.clear();
         for (int i = 0; i < mListBitmap.size(); i++) {
@@ -237,6 +245,9 @@ public class MainActivity extends AppCompatActivity {
         mListBitmap.remove((mListBitmap.size() - position + 1) %
                 mListBitmap.size());
 
+        bitmap.remove((mListBitmap.size() - position + 1) %
+                mListBitmap.size());
+
         handler.sendEmptyMessageDelayed(2, 3 * 1000);
     }
 
@@ -246,11 +257,8 @@ public class MainActivity extends AppCompatActivity {
      **/
     private void initChuShiHua() {
 
-        //处理图片角度方法
-        mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
+        mListBitmap = WheelSurfView.rotateBitmaps((ArrayList<Bitmap>) mListBitmap);
 
-        if (build != null) {
-        }
         build = new WheelSurfView.Builder()
                 .setmColors(color)
                 .setmIcons(mListBitmap)
@@ -258,6 +266,17 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         wheelSurfView2.setConfig(build);
+
+        if (bitmap == null) {
+            return;
+        }
+        Iterator<Bitmap> iterator = bitmap.iterator();
+        while (iterator.hasNext()) {
+            Bitmap next = iterator.next();
+            next.recycle();
+            iterator.remove();
+        }
+        bitmap = null;
     }
 
 

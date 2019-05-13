@@ -298,7 +298,6 @@ public class WheelSurfPanView extends View {
                 //当旋转结束的时候回调给调用者当前所选择的内容
                 if (rotateListener != null) {
 
-
                     rotateListener.rotateEnd(pos, "", mListBitmap.get((mTypeNum - pos + 1) %
                             mTypeNum));
                 }
