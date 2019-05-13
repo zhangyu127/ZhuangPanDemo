@@ -194,7 +194,7 @@ public class WheelSurfPanView extends View {
                     if (colorArray == -1) throw new RuntimeException("找不到背景颜色");
                     String[] colorStrs = context.getResources().getStringArray(colorArray);
                     if (mIcons == null || colorStrs == null)
-                        throw new RuntimeException("找不到描述或图片hh或背景颜色资源");
+                        throw new RuntimeException("找不到描述或图片或背景颜色资源");
                     if (mIcons.length != mTypeNum || colorStrs.length != mTypeNum)
                         throw new RuntimeException("资源或描述或背景颜色的长度和mTypeNum不一致");
                     mColors = new Integer[mTypeNum];
@@ -298,7 +298,6 @@ public class WheelSurfPanView extends View {
                 //当旋转结束的时候回调给调用者当前所选择的内容
                 if (rotateListener != null) {
 
-                    //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);
 
                     rotateListener.rotateEnd(pos, "", mListBitmap.get((mTypeNum - pos + 1) %
                             mTypeNum));
@@ -337,7 +336,7 @@ public class WheelSurfPanView extends View {
 
         mCenter = mWidth / 2;
         //绘制扇形的半径 减掉50是为了防止边界溢出  具体效果你自己注释掉-50自己测试
-        mRadius = mWidth / 2 - 50;
+        mRadius = mWidth / 2 -50;
 
         //MUST CALL THIS
         setMeasuredDimension(width, width);

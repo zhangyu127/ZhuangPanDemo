@@ -170,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
 
 
-
         colors = new ArrayList<>();
         colors.add(Color.parseColor("#F6829F"));
         colors.add(Color.parseColor("#E83030"));
@@ -250,6 +249,8 @@ public class MainActivity extends AppCompatActivity {
         //处理图片角度方法
         mListBitmap = WheelSurfView.rotateBitmaps(mListBitmap);
 
+        if (build != null) {
+        }
         build = new WheelSurfView.Builder()
                 .setmColors(color)
                 .setmIcons(mListBitmap)

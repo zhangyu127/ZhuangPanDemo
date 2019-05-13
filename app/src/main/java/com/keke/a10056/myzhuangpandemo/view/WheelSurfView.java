@@ -219,6 +219,7 @@ public class WheelSurfView extends RelativeLayout {
         }
     }
 
+
     //旋转图片
     public static List<Bitmap> rotateBitmaps(List<Bitmap> source) {
         float mAngle = (float) (360.0 / source.size());
