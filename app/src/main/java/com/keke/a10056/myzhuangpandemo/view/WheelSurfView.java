@@ -18,6 +18,11 @@ import android.widget.RelativeLayout;
 import com.keke.a10056.myzhuangpandemo.R;
 import com.keke.a10056.myzhuangpandemo.listener.RotateListener;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -250,4 +255,36 @@ public class WheelSurfView extends RelativeLayout {
     }
 
 
+
+
+
+    Bitmap bitmap;
+    public Bitmap returnBitMap(final String url){
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                URL imageurl = null;
+
+                try {
+                    imageurl = new URL(url);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    HttpURLConnection conn = (HttpURLConnection)imageurl.openConnection();
+                    conn.setDoInput(true);
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        return bitmap;
+    }
 }
