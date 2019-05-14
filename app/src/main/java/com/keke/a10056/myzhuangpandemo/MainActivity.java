@@ -41,39 +41,6 @@ import static android.widget.Toast.*;
  * 转盘抽奖
  **/
 
-/**
- * 新增使用代码设置属性的方式
- * <p>
- * 请注意：
- * 使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
- * 使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
- * 使用这种方式需要在引入布局文件的时候在布局文件中设置mTypeNums = -1 来告诉我你现在要用代码传入这些属性
- * <p>
- * 重要的事情说三遍
- * <p>
- * 例如
- * <com.cretin.www.wheelsruflibrary.view.WheelSurfView
- * android:id="@+id/wheelSurfView2"
- * android:layout_width="match_parent"
- * android:layout_height="match_parent"
- * wheelSurfView:typenum="-1"
- * android:layout_margin="20dp">
- * <p>
- * 然后调用setConfig()方法来设置你的属性
- * <p>
- * 请注意：
- * 你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
- * 你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
- * 你在传入所有的图标文件之后需要调用 WheelSurfView.rotateBitmaps() 此方法来处理一下你传入的图片
- * <p>
- * 重要的事情说三遍
- * <p>
- * 请注意：
- * .setmColors(\)
- * .setmDeses(des)
- * .setmIcons(mListBitmap)
- * 这三个方法中的参数长度必须一致 否则会报运行时异常
- */
 
 
 public class MainActivity extends AppCompatActivity {
@@ -245,10 +212,9 @@ public class MainActivity extends AppCompatActivity {
         mListBitmap.remove((mListBitmap.size() - position + 1) %
                 mListBitmap.size());
 
-        bitmap.remove((mListBitmap.size() - position + 1) %
-                mListBitmap.size());
 
-        handler.sendEmptyMessageDelayed(2, 3 * 1000);
+//        handler.sendEmptyMessageDelayed(2, 3 * 1000);
+        initChuShiHua();
     }
 
 

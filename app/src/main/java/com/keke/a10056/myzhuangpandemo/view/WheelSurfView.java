@@ -260,8 +260,6 @@ public class WheelSurfView extends RelativeLayout {
 
     Bitmap bitmap;
     public Bitmap returnBitMap(final String url){
-
-
         new Thread(new Runnable() {
             @Override
             public void run() {
