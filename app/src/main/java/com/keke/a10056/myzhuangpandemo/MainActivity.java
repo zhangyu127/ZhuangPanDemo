@@ -42,7 +42,6 @@ import static android.widget.Toast.*;
  **/
 
 
-
 public class MainActivity extends AppCompatActivity {
 
     private ImageView imageView;

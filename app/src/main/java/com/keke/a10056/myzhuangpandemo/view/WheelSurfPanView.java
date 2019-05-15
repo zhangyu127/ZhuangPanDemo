@@ -14,6 +14,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -49,6 +51,7 @@ public class WheelSurfPanView extends View {
     private int mWidth;
     //记录当前有几个分类
     private Paint mPaint;
+    private Path circlePath;
     //文字画笔
     private Paint mTextPaint;
     //圆环图片
@@ -335,7 +338,7 @@ public class WheelSurfPanView extends View {
 
         mCenter = mWidth / 2;
         //绘制扇形的半径 减掉50是为了防止边界溢出  具体效果你自己注释掉-50自己测试
-        mRadius = mWidth / 2 -50;
+        mRadius = mWidth / 2 - 50;
 
         //MUST CALL THIS
         setMeasuredDimension(width, width);
@@ -396,7 +399,7 @@ public class WheelSurfPanView extends View {
     //绘制文字
     private void drawText(float startAngle, String string, int radius, Paint textPaint, Canvas canvas) {
         //创建绘制路径
-        Path circlePath = new Path();
+        circlePath = new Path();
         //范围也是整个圆盘
         RectF rect = new RectF(mCenter - radius, mCenter - radius, mCenter
                 + radius, mCenter + radius);
@@ -414,12 +417,9 @@ public class WheelSurfPanView extends View {
 
     //再一次onDraw
     public void show() {
-        //做最后的准备工作 检查数据是否合理
-        if (mHuanImgRes == null || mHuanImgRes == 0)
-            mYuanHuan = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.yuanhuan);
-        else {
-            mYuanHuan = BitmapFactory.decodeResource(mContext.getResources(), mHuanImgRes);
-        }
+        mYuanHuan=null;
+
+        mYuanHuan = BitmapFactory.decodeResource(mContext.getResources(), R.mipmap.yuanhuan);
         //文字大小
         if (mTextSize == 0)
             mTextSize = 14 * getScale();
@@ -449,6 +449,10 @@ public class WheelSurfPanView extends View {
             mAngle = (float) (360.0 / mTypeNum);
         if (mVarTime == 0)
             mVarTime = 75;
+
+        if (circlePath != null) {
+            circlePath.reset();
+        }
 
         //重绘
         invalidate();

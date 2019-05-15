@@ -231,7 +231,7 @@ public class WheelSurfView extends RelativeLayout {
         float mAngle = (float) (360.0 / source.size());
         List<Bitmap> result = new ArrayList<>();
         Iterator<Bitmap> iterator = source.iterator();
-        int i=0;
+        int i = 0;
         while (iterator.hasNext()) {
             Bitmap bitmap = iterator.next();
             int ww = bitmap.getWidth();
@@ -246,8 +246,7 @@ public class WheelSurfView extends RelativeLayout {
             Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, ww, hh,
                     matrix, true);
             result.add(dstbmp);
-//            iterator.remove();
-//            bitmap.recycle();
+            iterator.remove();
             i++;
         }
 
@@ -255,11 +254,9 @@ public class WheelSurfView extends RelativeLayout {
     }
 
 
-
-
-
     Bitmap bitmap;
-    public Bitmap returnBitMap(final String url){
+
+    public Bitmap returnBitMap(final String url) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -271,7 +268,7 @@ public class WheelSurfView extends RelativeLayout {
                     e.printStackTrace();
                 }
                 try {
-                    HttpURLConnection conn = (HttpURLConnection)imageurl.openConnection();
+                    HttpURLConnection conn = (HttpURLConnection) imageurl.openConnection();
                     conn.setDoInput(true);
                     conn.connect();
                     InputStream is = conn.getInputStream();
