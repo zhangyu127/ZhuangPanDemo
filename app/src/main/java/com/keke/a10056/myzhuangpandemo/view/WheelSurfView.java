@@ -114,8 +114,6 @@ public class WheelSurfView extends RelativeLayout {
             mWheelSurfPanView.setmColors(builder.mColors);
         if (builder.mHuanImgRes != 0)
             mWheelSurfPanView.setmHuanImgRes(builder.mHuanImgRes);
-        if (builder.mIcons != null)
-            mWheelSurfPanView.setmIcons(builder.mIcons);
         if (builder.mMinTimes != 0)
             mWheelSurfPanView.setmMinTimes(builder.mMinTimes);
         if (builder.mTextColor != 0)
@@ -191,8 +189,6 @@ public class WheelSurfView extends RelativeLayout {
         private int mTypeNum = 0;
         //每个扇形旋转的时间
         private int mVarTime = 0;
-        //自定义图标集合
-        private List<Bitmap> mIcons;
         //背景颜色
         private List<Integer> mColors;
         //圆环的图片引用
@@ -209,11 +205,6 @@ public class WheelSurfView extends RelativeLayout {
         }
 
 
-        public final WheelSurfView.Builder setmIcons(List<Bitmap> mIcons) {
-            this.mIcons = mIcons;
-            return this;
-        }
-
         public final WheelSurfView.Builder setmColors(List<Integer> mColors) {
             this.mColors = mColors;
             return this;
@@ -225,61 +216,4 @@ public class WheelSurfView extends RelativeLayout {
         }
     }
 
-
-    //旋转图片
-    public static List<Bitmap> rotateBitmaps(ArrayList<Bitmap> source) {
-        float mAngle = (float) (360.0 / source.size());
-        List<Bitmap> result = new ArrayList<>();
-        Iterator<Bitmap> iterator = source.iterator();
-        int i = 0;
-        while (iterator.hasNext()) {
-            Bitmap bitmap = iterator.next();
-            int ww = bitmap.getWidth();
-            int hh = bitmap.getHeight();
-            // 定义矩阵对象
-            Matrix matrix = new Matrix();
-            // 缩放原图
-            matrix.postScale(1f, 1f);
-            // 向左旋转45度，参数为正则向右旋转
-            matrix.postRotate(mAngle * i);
-            //bmp.getWidth(), 500分别表示重绘后的位图宽高
-            Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, ww, hh,
-                    matrix, true);
-            result.add(dstbmp);
-            iterator.remove();
-            i++;
-        }
-
-        return result;
-    }
-
-
-    Bitmap bitmap;
-
-    public Bitmap returnBitMap(final String url) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                URL imageurl = null;
-
-                try {
-                    imageurl = new URL(url);
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    HttpURLConnection conn = (HttpURLConnection) imageurl.openConnection();
-                    conn.setDoInput(true);
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    bitmap = BitmapFactory.decodeStream(is);
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
-        return bitmap;
-    }
 }

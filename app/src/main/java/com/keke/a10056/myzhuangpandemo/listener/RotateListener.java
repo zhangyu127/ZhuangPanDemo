@@ -17,7 +17,7 @@ public interface RotateListener {
      * @param position
      * @param des      所指分区文字描述
      */
-    void rotateEnd(int position, String des, Bitmap bitmap);
+    void rotateEnd(int position, String des);
 
 
     /**

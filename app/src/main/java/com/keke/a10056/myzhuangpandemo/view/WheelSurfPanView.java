@@ -56,8 +56,6 @@ public class WheelSurfPanView extends View {
     private Paint mTextPaint;
     //圆环图片
     private Bitmap mYuanHuan;
-    //大图片
-    private Bitmap mMain;
 
     //中心点横坐标
     private int mCenter;
@@ -66,7 +64,6 @@ public class WheelSurfPanView extends View {
     //每一个扇形的角度
     private float mAngle;
 
-    private List<Bitmap> mListBitmap;
 
     //动画回调监听
     private RotateListener rotateListener;
@@ -122,11 +119,6 @@ public class WheelSurfPanView extends View {
 
     public void setmTypeNum(int mTypeNum) {
         this.mTypeNum = mTypeNum;
-    }
-
-
-    public void setmIcons(List<Bitmap> mIcons) {
-        this.mListBitmap = mIcons;
     }
 
     public void setmColors(List<Integer> mColors) {
@@ -209,23 +201,7 @@ public class WheelSurfPanView extends View {
                             throw new RuntimeException("颜色值有误");
                         }
                     }
-                    //加载分类图片 存放图片的集合
-                    mListBitmap = new ArrayList<>();
-                    for (int i = 0; i < mTypeNum; i++) {
-                        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), mIcons[i]);
-                        int ww = bitmap.getWidth();
-                        int hh = bitmap.getHeight();
-                        // 定义矩阵对象
-                        Matrix matrix = new Matrix();
-                        // 缩放原图
-                        matrix.postScale(1f, 1f);
-                        // 向左旋转45度，参数为正则向右旋转
-                        matrix.postRotate(mAngle * i);
-                        //bmp.getWidth(), 500分别表示重绘后的位图宽高
-                        Bitmap dstbmp = Bitmap.createBitmap(bitmap, 0, 0, ww, hh,
-                                matrix, true);
-                        mListBitmap.add(dstbmp);
-                    }
+
                     //文字画笔
                     mTextPaint = new Paint();
                     //设置填充样式
@@ -243,7 +219,6 @@ public class WheelSurfPanView extends View {
                 typedArray.recycle();
             }
         }
-
         //其他画笔
         mPaint = new Paint();
         //设置填充样式
@@ -300,15 +275,14 @@ public class WheelSurfPanView extends View {
                 Bitmap bitmap = null;
                 //当旋转结束的时候回调给调用者当前所选择的内容
                 if (rotateListener != null) {
-
-                    rotateListener.rotateEnd(pos, "", mListBitmap.get((mTypeNum - pos + 1) %
-                            mTypeNum));
+                    rotateListener.rotateEnd(pos, "");
                 }
             }
         });
         // 正式开始启动执行动画
         anim.start();
     }
+
 
 
     @Override
@@ -371,22 +345,6 @@ public class WheelSurfPanView extends View {
             mTextPaint.setColor(mTextColor);
             drawText(startAngle, "", mRadius, mTextPaint, canvas);
 
-            int imgWidth = mRadius / 3;
-
-            int w = (int) (Math.abs(Math.cos(Math.toRadians(Math.abs(180 - mAngle * i)))) *
-                    imgWidth + imgWidth * Math.abs(Math.sin(Math.toRadians(Math.abs(180 - mAngle * i)))));
-            int h = (int) (Math.abs(Math.sin(Math.toRadians(Math.abs(180 - mAngle * i)))) *
-                    imgWidth + imgWidth * Math.abs(Math.cos(Math.toRadians(Math.abs(180 - mAngle * i)))));
-
-            float angle = (float) Math.toRadians(startAngle + mAngle / 2);
-
-            //确定图片在圆弧中 中心点的位置
-            float x = (float) (width / 2 + (mRadius / 2 + mRadius / 12) * Math.cos(angle));
-            float y = (float) (height / 2 + (mRadius / 2 + mRadius / 12) * Math.sin(angle));
-            // 确定绘制图片的位置
-            RectF rect1 = new RectF(x - w / 2, y - h / 2, x + w / 2, y + h / 2);
-            canvas.drawBitmap(mListBitmap.get(i), null, rect1, null);
-
             //重置开始角度
             startAngle = startAngle + mAngle;
         }
@@ -415,6 +373,7 @@ public class WheelSurfPanView extends View {
         canvas.drawTextOnPath(string, circlePath, hOffset, radius / 4, textPaint);
     }
 
+
     //再一次onDraw
     public void show() {
         mYuanHuan=null;
@@ -427,9 +386,6 @@ public class WheelSurfPanView extends View {
         if (mTextColor == 0)
             mTextColor = Color.parseColor("#ff00ff");
 
-        if (mListBitmap.size() != mColors.length) {
-            throw new RuntimeException("Icons数量和Deses和Colors三者数量必须与mTypeNum一致");
-        }
 
         if (mTextPaint == null) {
             //文字画笔

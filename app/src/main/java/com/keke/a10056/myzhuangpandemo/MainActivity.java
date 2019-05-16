@@ -1,38 +1,24 @@
 package com.keke.a10056.myzhuangpandemo;
 
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.keke.a10056.myzhuangpandemo.listener.RotateListener;
 import com.keke.a10056.myzhuangpandemo.view.WheelSurfView;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import static android.widget.Toast.*;
+import java.util.ArrayList;
+
+import java.util.List;
+
 
 
 /**
@@ -47,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private ImageView imageView;
     private WheelSurfView.Builder build;
     private List<Integer> colors;
-    private List<Integer> color;
     private List<Bitmap> mListBitmap;
     private WheelSurfView wheelSurfView2;
     private EditText tv_qd;
@@ -55,17 +40,6 @@ public class MainActivity extends AppCompatActivity {
     private Button btn;
 
 
-    @SuppressLint("HandlerLeak")
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            imageView.setVisibility(View.GONE);
-
-            //初始化方法
-            initChuShiHua();
-        }
-    };
-    private List<Bitmap> bitmap;
 
 
     @Override
@@ -95,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                //添加人数
-                initAdd();
                 initChuShiHua();
             }
         });
@@ -105,15 +77,12 @@ public class MainActivity extends AppCompatActivity {
         wheelSurfView2.setRotateListener(new RotateListener() {
             //动画结束回调
             @Override
-            public void rotateEnd(int position, String des, Bitmap bitmap) {
+            public void rotateEnd(int position, String des) {
                 //判断重新加载转盘   每一次减一
-                if (mListBitmap.size() == 2 || mListBitmap.size() == 1) {
-                    imageView.setVisibility(View.VISIBLE);
-                    imageView.setImageBitmap(bitmap);
+                if (colors.size() == 2 || colors.size() == 1) {
                     initEnd(position);
                 } else {
-                    imageView.setVisibility(View.VISIBLE);
-                    imageView.setImageBitmap(bitmap);
+
                     //删除制定位置
                     initClear(position);
                 }
@@ -136,8 +105,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.iphone));
-
 
         colors = new ArrayList<>();
         colors.add(Color.parseColor("#F6829F"));
@@ -148,36 +115,12 @@ public class MainActivity extends AppCompatActivity {
         colors.add(Color.parseColor("#DEDC88"));
         colors.add(Color.parseColor("#C5CCD1"));
         colors.add(Color.parseColor("#DEDC88"));
-        colors.add(Color.parseColor("#D47EFF"));
 
-
-        //对颜色进行遍历    根据人物bitmap集合来遍历颜色
-        color = new ArrayList<>();
-        for (int i = 0; i < mListBitmap.size(); i++) {
-            color.add(colors.get(i));
-        }
 
         initChuShiHua();
     }
 
 
-    /**
-     * 添加人数
-     **/
-    private void initAdd() {
-
-        bitmap = mListBitmap;
-        mListBitmap = new ArrayList<>();
-        for (Bitmap bitmap1 : bitmap) {
-            mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.liwu));
-        }
-        mListBitmap.add(BitmapFactory.decodeResource(getResources(), R.mipmap.liwu));
-
-        color.clear();
-        for (int i = 0; i < mListBitmap.size(); i++) {
-            color.add(colors.get(i));
-        }
-    }
 
     /**
      * 结束方法
@@ -186,16 +129,11 @@ public class MainActivity extends AppCompatActivity {
 
         //对数据显示图片进行处理
         //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);
-        if (mListBitmap.size() == 2) {
-            mListBitmap.remove((mListBitmap.size() - position + 1) %
-                    mListBitmap.size());
-            color.remove((mListBitmap.size() - position + 1) %
-                    mListBitmap.size());
+        if (colors.size() == 2) {
+            colors.remove((colors.size() - position + 1) %
+                    colors.size());
         }
-        Bitmap bitmap1 = mListBitmap.get(0);
 
-        WinDialog winDialog = new WinDialog(MainActivity.this, bitmap1);
-        winDialog.show();
         initChuShiHua();
     }
 
@@ -206,13 +144,9 @@ public class MainActivity extends AppCompatActivity {
     private void initClear(int position) {
         //根据算法删除删除选中的那一栏
         //加载数据是顺时针加载数据，选择数据itemID是逆时针获取所以用(mTypeNum - pos + 1) %mTypeNum);s
-        color.remove((mListBitmap.size() - position + 1) %
-                mListBitmap.size());
-        mListBitmap.remove((mListBitmap.size() - position + 1) %
-                mListBitmap.size());
+        colors.remove((colors.size() - position + 1) %
+                colors.size());
 
-
-//        handler.sendEmptyMessageDelayed(2, 3 * 1000);
         initChuShiHua();
     }
 
@@ -221,27 +155,13 @@ public class MainActivity extends AppCompatActivity {
      * 初始化转盘
      **/
     private void initChuShiHua() {
-
-        mListBitmap = WheelSurfView.rotateBitmaps((ArrayList<Bitmap>) mListBitmap);
-
         build = new WheelSurfView.Builder()
-                .setmColors(color)
-                .setmIcons(mListBitmap)
-                .setmTypeNum(mListBitmap.size())
+                .setmColors(colors)
+                .setmTypeNum(colors.size())
                 .build();
 
         wheelSurfView2.setConfig(build);
 
-        if (bitmap == null) {
-            return;
-        }
-        Iterator<Bitmap> iterator = bitmap.iterator();
-        while (iterator.hasNext()) {
-            Bitmap next = iterator.next();
-            next.recycle();
-            iterator.remove();
-        }
-        bitmap = null;
     }
 
 
@@ -249,27 +169,12 @@ public class MainActivity extends AppCompatActivity {
      * 启动转盘方法
      **/
     private void initQiDong() {
-
-        if ("".equals(tv_qd.getText().toString())) {
-            Toast.makeText(MainActivity.this, "你输入为空", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (mListBitmap.size() == 1) {
-            Toast.makeText(MainActivity.this, "目前仅一人，无法进行游戏", Toast.LENGTH_LONG).show();
-            return;
-        }
-
-        wheelSurfView2.startRotate(Integer.parseInt(tv_qd.getText().toString().trim()));
-
+        wheelSurfView2.startRotate(Integer.parseInt("1"));
     }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-            handler = null;
-        }
     }
 }
